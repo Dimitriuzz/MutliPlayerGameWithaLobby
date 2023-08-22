@@ -5,66 +5,69 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class CharacterControl: MonoBehaviourPun
+namespace SpaceShooter
 {
-    private Camera _cam;
-    private Player _localPlayer;
-    private ChatManager _chatManager;
-    private void Start()
+    public class CharacterControl : MonoBehaviourPun
     {
-        if (!photonView.IsMine) return;
-
-        _localPlayer = PhotonNetwork.LocalPlayer;
-        
-        DontDestroyOnLoad(gameObject);
-
-        StartCoroutine(SendPackages());
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private Camera _cam;
+        private Player _localPlayer;
+        private ChatManager _chatManager;
+        private void Start()
         {
-            Server.Instance.RequestShoot(_localPlayer, MousePosition());
-        }
-            
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
-        {
-            Server.Instance.RequestJump(_localPlayer);
+            if (!photonView.IsMine) return;
+
+            _localPlayer = PhotonNetwork.LocalPlayer;
+
+            DontDestroyOnLoad(gameObject);
+
+            StartCoroutine(SendPackages());
         }
 
-	}
-
-    IEnumerator SendPackages()
-    {
-        while (true)
+        private void Update()
         {
-            Debug.Log("send packages");
-            var h = Input.GetAxis("Horizontal");
-            
-            var dir = Vector3.zero;
-            
-            if (h > 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                dir = transform.right;
+                Server.Instance.RequestShoot(_localPlayer, MousePosition());
             }
-            
-            if (h<0)
-            {
-                dir = -transform.right;
-            }
-            Server.Instance.RequestMove(_localPlayer, dir);
 
-            yield return new WaitForSeconds(1 / Server.Instance.PackagesPerSecond);
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+            {
+                Server.Instance.RequestJump(_localPlayer);
+            }
+
         }
-    }
-    
-    Vector3 MousePosition()
-    {
-        if (!_cam)
+
+        IEnumerator SendPackages()
         {
-            _cam = FindObjectOfType<Camera>();
+            while (true)
+            {
+                Debug.Log("send packages");
+                var h = Input.GetAxis("Horizontal");
+
+                var dir = Vector3.zero;
+
+                if (h > 0)
+                {
+                    dir = transform.right;
+                }
+
+                if (h < 0)
+                {
+                    dir = -transform.right;
+                }
+                Server.Instance.RequestMove(_localPlayer, dir);
+
+                yield return new WaitForSeconds(1 / Server.Instance.PackagesPerSecond);
+            }
         }
-        return _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, (_cam.transform.position - transform.position).magnitude));
+
+        Vector3 MousePosition()
+        {
+            if (!_cam)
+            {
+                _cam = FindObjectOfType<Camera>();
+            }
+            return _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, (_cam.transform.position - transform.position).magnitude));
+        }
     }
 }

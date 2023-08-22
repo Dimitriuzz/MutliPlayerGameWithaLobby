@@ -43,7 +43,7 @@ public class ChatManager : MonoBehaviour
     //Envío al server local el mensaje que quiero mandar al chat
     public void SendTextToServer()
     {
-        Server.Instance.RequestSendText(_textBox.text);
+        //Server.Instance.RequestSendText(_textBox.text);
         _textBox.text = "";
     }
 }

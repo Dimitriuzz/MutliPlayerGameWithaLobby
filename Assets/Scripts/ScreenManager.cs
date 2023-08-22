@@ -20,7 +20,7 @@ public class ScreenManager : MonoBehaviourPunCallbacks
     
     public void Disconnect()
     {
-        Server.Instance.PlayerLeavesRoom(PhotonNetwork.LocalPlayer);
+        //Server.Instance.PlayerLeavesRoom(PhotonNetwork.LocalPlayer);
     }
 
     public void WaitingScreenState(bool state)

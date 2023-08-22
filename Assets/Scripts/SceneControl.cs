@@ -7,7 +7,7 @@ using Photon.Pun;
 public class SceneControl : MonoBehaviourPunCallbacks
 {
     public static SceneControl instance;
-    // Start is called before the first frame update
+    
     void Start()
     {
         if (instance)
@@ -33,9 +33,9 @@ public class SceneControl : MonoBehaviourPunCallbacks
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (scene.buildIndex==1)
+        if (scene.buildIndex==2)
         {
-            PhotonNetwork.Instantiate("PlayerManager", Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate("GamePlayer", Vector3.zero, Quaternion.identity);
         }
     }
 }
