@@ -23,11 +23,11 @@ namespace SpaceShooter
                 //Debug.Log(m_Parent.transform.name + " hit " + dest.name+"teamid1="+ m_Parent.TeamId+ "teamid2="+ dest.TeamId);
                 if(dest!=null&&dest!=m_Parent&&m_Parent!=null)
                 {
-                    if (m_Parent.TeamId != dest.TeamId)
-                    {
-                        dest.ApplyDamage(m_Damage);
+                    
+                    dest.ApplyDamage(m_Damage);
                         //Debug.Log("damage " + m_Damage);
-                    }
+                    
+                    if (dest.transform.tag == "Coin") m_Parent.goldCollected--;
                     /*if(m_Parent==Player.Instance.ActiveShip)
                     {
                         Player.Instance.AddScore(dest.ScoreValue);
@@ -71,8 +71,8 @@ namespace SpaceShooter
 
             Destroy(gameObject);
         }
-        private Destructable m_Parent;
-        public void SetParentShooter(Destructable parent)
+        private SpaceShip m_Parent;
+        public void SetParentShooter(SpaceShip parent)
         {
             m_Parent = parent;
         }

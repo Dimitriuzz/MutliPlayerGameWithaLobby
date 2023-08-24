@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace SpaceShooter
 {
@@ -34,11 +35,11 @@ namespace SpaceShooter
             if (m_Ship.DrawEnergy(m_TurretProperties.EnergyUsage) == false) return;
             if (m_Ship.DrawAmmo(m_TurretProperties.AmmoUsage) == false) return;
 
-            Projectile projectile = Instantiate(m_TurretProperties.ProjectilePrefab).GetComponent<Projectile>();
-            projectile.transform.position = transform.position;
+            var projectile = PhotonNetwork.Instantiate("ProjectileBase",transform.position,Quaternion.identity);
+            //projectile.transform.position = transform.position;
             projectile.transform.up = transform.up;
-
-            projectile.SetParentShooter(m_Ship);
+            var parent = projectile.GetComponent<Projectile>();
+            parent.SetParentShooter(m_Ship);
 
             m_RefireTimer = m_TurretProperties.RateOfFire;
         }

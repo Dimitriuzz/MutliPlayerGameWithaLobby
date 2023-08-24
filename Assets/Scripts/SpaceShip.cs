@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
+
 
 
 
@@ -17,9 +19,12 @@ namespace SpaceShooter
         [SerializeField] private float m_Mobility;
         [SerializeField] private float m_MaxLinearVelocity;
         [SerializeField] private float m_MaxAngularVelocity;
+       
 
         private Rigidbody2D m_Rigid;
         private ParticleSystem m_Part;
+
+        public int goldCollected;
 
         private PhotonView photonView;
 
@@ -31,7 +36,7 @@ namespace SpaceShooter
         [SerializeField] private Sprite m_PreviewImage;
         public Sprite PreviewImage => m_PreviewImage;
 
-
+        private StatusPanel statusPanel;
         public float ThrustControl { get; set; }
 
         public float TorqueControl { get; set; }
@@ -57,6 +62,8 @@ namespace SpaceShooter
             m_Part = GetComponentInChildren<ParticleSystem>();
             if (m_Part == null) Debug.Log("emmision not found");
             photonView = GetComponent<PhotonView>();
+
+            statusPanel = FindObjectOfType<StatusPanel>();
 
             var cameras = GetComponentsInChildren<Camera>();
             if(!photonView.IsMine)
@@ -100,6 +107,15 @@ namespace SpaceShooter
                 m_Thrust = m_BaseThrust;
                 
             }
+
+            
+
+            
+        }
+
+        public void UpdateHPBar()
+        {
+
         }
 
         private void UpdateRigidBody()
@@ -129,6 +145,51 @@ namespace SpaceShooter
         [SerializeField] private int m_MaxAmmo;
         [SerializeField] private int m_EnergyRegenPerSecond;
 
+        public static string IgnoreTag = "WorldBoundry";
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.transform.tag == IgnoreTag) return;
+
+            if (collision.transform.tag == "Coin")
+            {
+                CoinCollected();
+                //Destroy(collision.gameObject);
+
+            }
+            var destructible = transform.root.GetComponent<Destructable>();
+            var col = collision.transform.root.GetComponent<Destructable>();
+
+            if (destructible != null)
+            {
+                destructible.ApplyDamage(col.damagesOnCollision);
+                col.ApplyDamage(destructible.damagesOnCollision);
+                /*if(col==null)
+                destructible.ApplyDamage((int)m_DamageConstant +
+                    (int)(m_VelocityDamageModifier * collision.relativeVelocity.magnitude));
+                else
+                {
+                    if (destructible.TeamId == 2)
+                    {
+                        destructible.ApplyDamage((int)m_DamageConstant +
+                                            (int)(m_VelocityDamageModifier * collision.relativeVelocity.magnitude));
+
+                        col.ApplyDamage((int)m_DamageConstant +
+                                                                    (int)(m_VelocityDamageModifier * collision.relativeVelocity.magnitude));
+                    }
+                }*/
+
+
+
+            }
+        }
+
+        [PunRPC]
+        public void CoinCollected()
+        {
+            goldCollected++;
+            statusPanel.coinsNumber = goldCollected;
+
+        }
 
         public float m_PrimaryEnergy;
         public int m_SecondaryAmmo;
@@ -205,8 +266,12 @@ namespace SpaceShooter
         public void HealthUp (int health)
         {
             
-           m_CurrentHitPoints += health;
-            if (m_CurrentHitPoints > MaxHitPoints) m_CurrentHitPoints = MaxHitPoints;
+           var newHP = m_CurrentHitPoints+health;
+            Debug.Log("health " + health + "new hp " + newHP);
+           
+            if (newHP > MaxHitPoints) health=newHP-MaxHitPoints;
+            Debug.Log("health " + health + "new hp " + newHP);
+            ApplyDamage(-health);
         }
 
     }

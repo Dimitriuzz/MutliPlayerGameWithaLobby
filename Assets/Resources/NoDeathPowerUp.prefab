@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5416668720711956759}
   - component: {fileID: 2206809448469149720}
   - component: {fileID: 1285876904905353529}
+  - component: {fileID: 8927134164790100467}
   m_Layer: 0
   m_Name: NoDeathPowerUp
   m_TagString: Untagged
@@ -147,10 +148,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e30bf201c38934c87cedef9e6e9612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Nickname: 
+  m_Indestructible: 0
+  m_HitPoints: 0
+  damagesOnCollision: 0
+  m_Explosion: {fileID: 0}
+  HP: {fileID: 0}
+  name: {fileID: 0}
+  HPBar: {fileID: 0}
+  playerName: 
+  m_EventOnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TeamId: 0
+  m_ScoreValue: 0
   m_EffectType: 2
   m_Value1: 5
   m_Value2: 0
+--- !u!114 &8927134164790100467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937216984209895404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6183349884927614571
 GameObject:
   m_ObjectHideFlags: 0

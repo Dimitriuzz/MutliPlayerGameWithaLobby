@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 60e0d2b4684652a49847ae0be4f1e250, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea11eac1133097d4e9edbdd5379327e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,8 +95,9 @@ GameObject:
   - component: {fileID: 7654842421130113796}
   - component: {fileID: 4589309440711651851}
   - component: {fileID: 3515326845691061034}
+  - component: {fileID: 8869998009840232318}
   m_Layer: 0
-  m_Name: AddHealth
+  m_Name: AddEnergyPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,10 +148,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e30bf201c38934c87cedef9e6e9612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Nickname: 
-  m_EffectType: 4
-  m_Value1: 50
+  m_Indestructible: 0
+  m_HitPoints: 0
+  damagesOnCollision: 0
+  m_Explosion: {fileID: 0}
+  HP: {fileID: 0}
+  name: {fileID: 0}
+  HPBar: {fileID: 0}
+  playerName: 
+  m_EventOnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TeamId: 0
+  m_ScoreValue: 0
+  m_EffectType: 1
+  m_Value1: 20
   m_Value2: 0
+--- !u!114 &8869998009840232318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319525524124427775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8421453036179444856
 GameObject:
   m_ObjectHideFlags: 0

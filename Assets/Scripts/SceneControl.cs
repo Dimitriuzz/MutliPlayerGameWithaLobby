@@ -38,4 +38,9 @@ public class SceneControl : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate("GamePlayer", Vector3.zero, Quaternion.identity);
         }
     }
+
+    public void GameOver()
+    {
+
+    }
 }

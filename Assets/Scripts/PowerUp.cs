@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SpaceShooter
 {
     [RequireComponent(typeof(CircleCollider2D))]
-    public abstract class PowerUp : Entity
+    public abstract class PowerUp : Destructable
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {

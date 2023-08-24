@@ -14,12 +14,22 @@ public class CollisionDamageAplicator : MonoBehaviour
         {
             if (collision.transform.tag == IgnoreTag) return;
 
+            if (collision.transform.tag == "Coin")
+            {
+                if (TryGetComponent<SpaceShip>(out SpaceShip ship))
+                {
+                    ship.goldCollected++;
+                    Destroy(collision.gameObject);
+                }
+            }
             var destructible = transform.root.GetComponent<Destructable>();
             var col = collision.transform.root.GetComponent<Destructable>();
 
             if(destructible != null)
             {
-                if(col==null)
+                destructible.ApplyDamage(col.damagesOnCollision);
+                col.ApplyDamage(destructible.damagesOnCollision);
+                /*if(col==null)
                 destructible.ApplyDamage((int)m_DamageConstant +
                     (int)(m_VelocityDamageModifier * collision.relativeVelocity.magnitude));
                 else
@@ -32,9 +42,13 @@ public class CollisionDamageAplicator : MonoBehaviour
                         col.ApplyDamage((int)m_DamageConstant +
                                                                     (int)(m_VelocityDamageModifier * collision.relativeVelocity.magnitude));
                     }
-                }
+                }*/
+
+
 
             }
+
+            
         }
 
 

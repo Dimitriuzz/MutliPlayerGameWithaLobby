@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace SpaceShooter
 {
@@ -36,11 +37,11 @@ namespace SpaceShooter
             m_asteroidSize= m_asteroidSize - 1;
             for (int i = 0; i < 2; i++)
             {
-                
-                Asteroid asteroid = Instantiate(this, new Vector3(transform.position.x + j, transform.position.y, 0), Quaternion.identity);
+                Vector3 pos = new Vector3(this.transform.position.x + j, this.transform.position.y, 0);
+                var asteroid = PhotonNetwork.Instantiate("Asteroid", pos, Quaternion.identity);   
                 
                 asteroid.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-                asteroid.m_HitPoints = asteroid.MaxHitPoints / 2;
+                //asteroid.m_HitPoints = asteroid.MaxHitPoints / 2;
                 
                 Rigidbody2D rb = asteroid.GetComponent<Rigidbody2D>();
 
