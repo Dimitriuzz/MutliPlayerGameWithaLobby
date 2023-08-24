@@ -17,7 +17,7 @@ public class CameraControl : MonoBehaviour
 
     private void Start()
     {
-        var cameras = FindObjectsOfType<Camera>();
+        /*var cameras = FindObjectsOfType<Camera>();
         if (cameras[0].transform.name == "Main Camera")
         {
             m_Camera = cameras[0];
@@ -32,7 +32,7 @@ public class CameraControl : MonoBehaviour
         _myView = GetComponent<PhotonView>();
         if (!_myView.IsMine)
         
-            foreach (var c in FindObjectsOfType<Camera>()) Destroy(c.gameObject);
+            foreach (var c in FindObjectsOfType<Camera>()) Destroy(c.gameObject);*/
     }
     private void FixedUpdate()
     {

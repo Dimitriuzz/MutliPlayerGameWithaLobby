@@ -44,7 +44,7 @@ namespace SpaceShooter
                 if (photonView.IsMine)
                 {
                     PackagesPerSecond = 60;
-                    PhotonNetwork.LoadLevel(1);
+                    //PhotonNetwork.LoadLevel(1);
 
                     /*spawns = FindObjectOfType<CharacterSpawn>();
                     if (!spawns)

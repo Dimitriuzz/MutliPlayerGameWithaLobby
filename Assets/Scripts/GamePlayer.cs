@@ -5,30 +5,32 @@ using Photon.Pun;
 
 namespace SpaceShooter
 {
-    public class GamePlayer : SingletonBase<GamePlayer>
+    public class GamePlayer : MonoBehaviourPunCallbacks
     {
         [SerializeField] private int m_NumLives;
         [SerializeField] private SpaceShip m_Ship;
         [SerializeField] private GameObject m_PlayerShipPrefab;
         public SpaceShip ActiveShip => m_Ship;
+        private PhotonView photonView;
 
         public int NumLives => m_NumLives;
 
         [SerializeField] private CameraControl m_CameraController;
         [SerializeField] private MovementController m_MovementController;
 
-        protected override void Awake()
+       /* protected override void Awake()
         {
             base.Awake();
 
             if (m_Ship != null)
                 Destroy(m_Ship.gameObject);
             
-        }
+        }*/
 
         private void Start()
         {
-            Respawn();
+            photonView = GetComponent<PhotonView>();
+            if(photonView.IsMine) Respawn();
             
          }
 
@@ -48,16 +50,30 @@ namespace SpaceShooter
 
             //if (LevelSequenceController.PlayerShip != null)
             {
-                //Debug.Log("trying to instantiate");
+                Debug.Log(PhotonNetwork.IsMasterClient);
                 //var newPlayerShip = Instantiate(m_PlayerShipPrefab);
+                var spawns = GameObject.FindGameObjectsWithTag("Spawn");
+                Vector3 spawnpos = Vector3.zero;
+                for (int i = 0; i < spawns.Length; i++)
+                {
+                    if (PhotonNetwork.IsMasterClient&&spawns[i].name=="MasterPlayer")
+                    {
+                        spawnpos= spawns[i].transform.position;
+                       
+                    }
+                    if (PhotonNetwork.IsMasterClient! && spawns[i].name == "JoinedPlayer")
+                    {
+                        spawnpos = spawns[i].transform.position;
+                    }
+                }
 
-                var newPlayerShip=PhotonNetwork.Instantiate("Ship", Vector3.zero, Quaternion.identity);
-
+                var newPlayerShip = PhotonNetwork.Instantiate("Ship1", spawnpos, Quaternion.identity);
                 m_Ship = newPlayerShip.GetComponent<SpaceShip>();
 
-                m_CameraController.SetTarget(m_Ship.transform);
+
+                /*m_CameraController.SetTarget(m_Ship.transform);
                 m_MovementController.SetTargetShip(m_Ship);
-                m_Ship.EventOnDeath.AddListener(OnShipDeath);
+                m_Ship.EventOnDeath.AddListener(OnShipDeath);*/
             }
         }
 

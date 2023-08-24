@@ -58,16 +58,16 @@ namespace SpaceShooter
         #endregion
         protected virtual void OnDeath()
         {
-            if (TeamId == 1) 
+            /*if (TeamId == 1) 
             {
-                GamePlayer.Instance.AddKill();
+                GamePlayer.AddKill();
                
             }
             if (TeamId != 2)
             {
                 GamePlayer.Instance.AddScore(ScoreValue);
                
-            }
+            }*/
             var ex = Instantiate(m_Explosion);
             ex.transform.position = transform.position;
             Destroy(ex, 2);

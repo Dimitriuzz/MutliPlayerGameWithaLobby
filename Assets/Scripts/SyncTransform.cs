@@ -7,10 +7,10 @@ namespace SpaceShooter
     public class SyncTransform : MonoBehaviour
     {
         [SerializeField] private Transform m_Target;
-        int a;
+        
         void Update()
         {
-            transform.position = new Vector3(m_Target.position.x, m_Target.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
     }
 }

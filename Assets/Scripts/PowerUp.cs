@@ -10,7 +10,7 @@ namespace SpaceShooter
         {
             SpaceShip ship = collision.transform.root.GetComponent<SpaceShip>();
 
-            if(ship!=null&&GamePlayer.Instance.ActiveShip)
+            if(ship!=null)
             {
                 OnPickedUp(ship);
                 Destroy(gameObject);

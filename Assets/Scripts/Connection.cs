@@ -13,6 +13,7 @@ namespace SpaceShooter
     {
         public GameObject mainScreen;
         public GameObject connectedScreen;
+        public GameObject waitingScreen;
         public TMP_InputField nicknameField;
         public TextMeshProUGUI errorText;
 
@@ -24,6 +25,8 @@ namespace SpaceShooter
         public TextMeshProUGUI welcomeText;
         public TextMeshProUGUI lobbyErrorText;
         public string playerName;
+
+        private bool _enoughPlayers;
         public void Connect()
         {
             if (string.IsNullOrWhiteSpace(nicknameField.text))
@@ -53,6 +56,9 @@ namespace SpaceShooter
                 options.MaxPlayers = 5;
 
                 PhotonNetwork.JoinOrCreateRoom(createField.text, options, TypedLobby.Default);
+                SetWaitingScreen(true);
+
+                StartCoroutine(CheckPlayers());
             }
         }
 
@@ -72,16 +78,22 @@ namespace SpaceShooter
         public override void OnCreatedRoom()
         {
             PhotonNetwork.NickName = nicknameField.text;
+            Debug.Log("room created");
             //PhotonNetwork.Instantiate(controllerPrefab.name, Vector3.zero, Quaternion.identity);
-            PhotonNetwork.Instantiate(serverPrefab.name, Vector3.zero, Quaternion.identity);
+            //PhotonNetwork.Instantiate(serverPrefab.name, Vector3.zero, Quaternion.identity);
+            SetWaitingScreen(true);
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         public override void OnJoinedRoom()
         {
             if (!PhotonNetwork.IsMasterClient)
             {
+                Debug.Log("room joined");
+                SetWaitingScreen(true);
                 PhotonNetwork.NickName = playerName;
-                PhotonNetwork.Instantiate(serverPrefab.name, Vector3.zero, Quaternion.identity);
+                //PhotonNetwork.Instantiate(serverPrefab.name, Vector3.zero, Quaternion.identity);
+                PhotonNetwork.AutomaticallySyncScene = true;
                 //PhotonNetwork.Instantiate(controllerPrefab.name, Vector3.zero, Quaternion.identity);
             }
         }
@@ -128,5 +140,70 @@ namespace SpaceShooter
         {
             PhotonNetwork.Disconnect();
         }
+
+        public void StartGame()
+        {
+
+            //SetWaitingScreen(false);
+            PhotonNetwork.LoadLevel(2);
+        }
+
+        IEnumerator CheckPlayers()
+        {
+            while (!_enoughPlayers)
+            {
+                _enoughPlayers = PhotonNetwork.PlayerList.Length == 5;
+                yield return new WaitForSecondsRealtime(1);
+            }
+
+            _enoughPlayers = true;
+            foreach (var p in PhotonNetwork.PlayerList)
+            {
+                photonView.RPC("SetWaitingScreen", p, false);
+            }
+
+            Debug.Log("enough players: " + _enoughPlayers);
+        }
+
+
+      
+        void SetWaitingScreen(bool state)
+        {
+           
+           
+
+            waitingScreen.gameObject.SetActive(state);
+            //screens.SetRoomName(PhotonNetwork.CurrentRoom.Name);
+        }
+
+
+        [PunRPC]
+        void SetDisconnectScreen()
+        {
+            var screens = FindObjectOfType<ScreenManager>();
+
+            screens.DisconnectScreen();
+        }
+
+
+        [PunRPC]
+        void SetWinScreen()
+        {
+            var screens = FindObjectOfType<ScreenManager>();
+
+            screens.WinScreen();
+
+            var cc = FindObjectsOfType<CharacterControl>();
+
+            foreach (var c in cc)
+            {
+                Destroy(c.gameObject);
+            }
+        }
+
+
+
+
+
     }
 }

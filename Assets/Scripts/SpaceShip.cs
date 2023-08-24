@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 
 
@@ -19,7 +21,8 @@ namespace SpaceShooter
         private Rigidbody2D m_Rigid;
         private ParticleSystem m_Part;
 
-        
+        private PhotonView photonView;
+
         public float MaxLinearVelocity => m_MaxLinearVelocity;
 
        
@@ -53,12 +56,25 @@ namespace SpaceShooter
             m_BaseThrust = m_Thrust;
             m_Part = GetComponentInChildren<ParticleSystem>();
             if (m_Part == null) Debug.Log("emmision not found");
-            
+            photonView = GetComponent<PhotonView>();
+
+            var cameras = GetComponentsInChildren<Camera>();
+            if(!photonView.IsMine)
+            {
+                foreach (var c in cameras) Destroy(c.gameObject);
+            }
+
+            var cameracontrol = GetComponent<CameraControl>();
+
+            cameracontrol.SetTarget(transform);
+
+
         }
 
        
         private void FixedUpdate()
         {
+            if (!photonView.IsMine) return;
             UpdateRigidBody();
             UpdateEnergyRegen();
             if (m_IndestructableTimer > 0)
