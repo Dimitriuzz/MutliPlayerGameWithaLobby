@@ -87,7 +87,10 @@ namespace SpaceShooter
             m_TargetShip.ThrustControl = dir.y;
             m_TargetShip.TorqueControl = -dir.x;
 
-            if (m_MobileFirePrimary.IsHold) m_TargetShip.Fire(TurretMode.Primary);
+            if (m_MobileFirePrimary.IsHold)
+            { m_TargetShip.Fire(TurretMode.Primary);
+                Debug.Log("control fire");
+                    }
             if (m_MobileFireSecondary.IsHold) m_TargetShip.Fire(TurretMode.Secondary);
 
 

@@ -13,6 +13,7 @@ namespace SpaceShooter
 
         private void Update()
         {
+            Debug.Log("projectile fly");
             float stepLength = Time.deltaTime * m_Velocity;
             Vector2 step = transform.up * stepLength;
 
@@ -27,7 +28,7 @@ namespace SpaceShooter
                     dest.ApplyDamage(m_Damage);
                         //Debug.Log("damage " + m_Damage);
                     
-                    if (dest.transform.tag == "Coin") m_Parent.goldCollected--;
+                    if (dest.transform.tag == "Coin") m_Parent.CollectedCoin(-1);
                     /*if(m_Parent==Player.Instance.ActiveShip)
                     {
                         Player.Instance.AddScore(dest.ScoreValue);

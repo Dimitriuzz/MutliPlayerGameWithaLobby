@@ -22,7 +22,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Start()
     {
         instance = this;
-        PhotonNetwork.ConnectUsingSettings();
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+            StartCoroutine(WaitToLeave());
+        }
+            PhotonNetwork.ConnectUsingSettings();
         Debug.Log("connected");
         //MenuManager.instance.OpenMenu("nameenter");
     }
@@ -48,7 +53,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     
     public void NameEnter()
     {
-        if (string.IsNullOrEmpty(playerName.text)) return;
+        if (!string.IsNullOrEmpty(PhotonNetwork.NickName)) MenuManager.instance.OpenMenu("title");
+        //if (string.IsNullOrEmpty(playerName.text)) return;
         PhotonNetwork.NickName = playerName.text;
         MenuManager.instance.OpenMenu("title");
     }
@@ -131,5 +137,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(info.Name);
     }
 
-    
+    IEnumerator WaitToLeave()
+    {
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+        
+    }
 }

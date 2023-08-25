@@ -132,6 +132,7 @@ namespace SpaceShooter
 
         public void Fire(TurretMode mode)
         {
+            Debug.Log("spaceship fire");
             for (int i=0; i<m_Turret.Length;i++)
             {
                 if(m_Turret[i].Mode==mode)
@@ -152,7 +153,7 @@ namespace SpaceShooter
 
             if (collision.transform.tag == "Coin")
             {
-                CoinCollected();
+                CollectedCoin(1);
                 //Destroy(collision.gameObject);
 
             }
@@ -183,10 +184,16 @@ namespace SpaceShooter
             }
         }
 
-        [PunRPC]
-        public void CoinCollected()
+        public void CollectedCoin(int numberOfGold)
         {
-            goldCollected++;
+            gameObject.GetComponent<PhotonView>().RPC("CoinCollected", RpcTarget.All,numberOfGold);
+        }
+
+
+        [PunRPC]
+        public void CoinCollected(int numberOfGold)
+        {
+            goldCollected+=numberOfGold;
             statusPanel.coinsNumber = goldCollected;
 
         }

@@ -36,6 +36,7 @@ namespace SpaceShooter
             if (m_Ship.DrawAmmo(m_TurretProperties.AmmoUsage) == false) return;
 
             var projectile = PhotonNetwork.Instantiate("ProjectileBase",transform.position,Quaternion.identity);
+            Debug.Log("turret fired");
             //projectile.transform.position = transform.position;
             projectile.transform.up = transform.up;
             var parent = projectile.GetComponent<Projectile>();

@@ -101,10 +101,13 @@ namespace SpaceShooter
                     Debug.Log(player.playerName + player.HitPoints + " " + player.goldCollected);
                     if (player.HitPoints > 0) end.ResultsDispaly(player.playerName, player.goldCollected);
                     ///Destroy(player);
-                    Time.timeScale = 0;
+                    //Time.timeScale = 0;
                 }
 
             }
+
+            if (m_CurrentHitPoints <= 0) OnDeath();
+
 
             //healthbar.fillAmount = health / startHealth;
 
