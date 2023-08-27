@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class EntitySpawner : MonoBehaviour
     {
@@ -28,6 +28,7 @@ namespace SpaceShooter
             if(m_SpawnMode==SpawnMode.Start)
             {
                 SpawnEntities();
+                SpawnCoin();
             }
 
             m_TimerEntity = m_RespawnTime;

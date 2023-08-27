@@ -123,7 +123,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LoadLevel(1);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

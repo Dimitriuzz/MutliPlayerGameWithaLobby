@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace SpaceShooter
+namespace RocketPiglet
 { 
 public class CollisionDamageAplicator : MonoBehaviour
     {
@@ -16,7 +16,7 @@ public class CollisionDamageAplicator : MonoBehaviour
 
             if (collision.transform.tag == "Coin")
             {
-                if (TryGetComponent<SpaceShip>(out SpaceShip ship))
+                if (TryGetComponent<Piglet>(out Piglet ship))
                 {
                     ship.goldCollected++;
                     Destroy(collision.gameObject);

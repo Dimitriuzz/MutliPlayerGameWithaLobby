@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace SpaceShooter
+namespace RocketPiglet
 {
     [RequireComponent(typeof(CircleCollider2D))]
     public abstract class PowerUp : Destructable
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            SpaceShip ship = collision.transform.root.GetComponent<SpaceShip>();
+            Piglet ship = collision.transform.root.GetComponent<Piglet>();
 
             if(ship!=null)
             {
@@ -17,7 +17,7 @@ namespace SpaceShooter
             }
         }
 
-        protected abstract void OnPickedUp(SpaceShip ship);
+        protected abstract void OnPickedUp(Piglet ship);
 
     }
 }

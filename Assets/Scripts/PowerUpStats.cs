@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class PowerUpStats : PowerUp
     {
@@ -18,7 +18,7 @@ namespace SpaceShooter
         [SerializeField] private EffectType m_EffectType;
         [SerializeField] private float m_Value1;
         [SerializeField] private float m_Value2;
-        protected override void OnPickedUp(SpaceShip ship)
+        protected override void OnPickedUp(Piglet ship)
         {
             if (m_EffectType == EffectType.AddEnergy)
                 ship.AddEnergy((int)m_Value1);

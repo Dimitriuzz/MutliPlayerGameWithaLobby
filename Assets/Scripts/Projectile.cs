@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class Projectile : Entity
     {
@@ -72,8 +72,8 @@ namespace SpaceShooter
 
             Destroy(gameObject);
         }
-        private SpaceShip m_Parent;
-        public void SetParentShooter(SpaceShip parent)
+        private Piglet m_Parent;
+        public void SetParentShooter(Piglet parent)
         {
             m_Parent = parent;
         }

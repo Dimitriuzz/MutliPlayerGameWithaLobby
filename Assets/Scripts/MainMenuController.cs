@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace SpaceShooter
+namespace RocketPiglet
 { 
 public class MainMenuController : MonoSingleton<MainMenuController>
 {
         [SerializeField] private GameObject m_EpisodeSelection;
         [SerializeField] private GameObject m_ShipSelection;
         [SerializeField] private GameObject m_Results;
-        [SerializeField] private SpaceShip m_DefaultSpaceShip;
+        [SerializeField] private Piglet m_DefaultSpaceShip;
 
         private void Start()
         {

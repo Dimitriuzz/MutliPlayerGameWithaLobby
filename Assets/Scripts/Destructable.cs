@@ -7,7 +7,7 @@ using Photon.Pun;
 using TMPro;
 
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class Destructable : MonoBehaviourPunCallbacks, IPunObservable
     {
@@ -53,7 +53,7 @@ namespace SpaceShooter
             }
             photonView = GetComponent<PhotonView>();
             playerName = photonView.Owner.NickName;
-            if (TryGetComponent<SpaceShip>(out SpaceShip ship)) name.text=playerName;
+            if (TryGetComponent<Piglet>(out Piglet ship)) name.text=playerName;
         }
         #endregion
 
@@ -92,7 +92,7 @@ namespace SpaceShooter
             {
 
                
-                var players = FindObjectsOfType<SpaceShip>();
+                var players = FindObjectsOfType<Piglet>();
                 Debug.Log("number of players" + players.Length);
                 var end = FindObjectOfType<RestartGame>();
                 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     /// <summary>
     /// Singleton for MonoBehaviours

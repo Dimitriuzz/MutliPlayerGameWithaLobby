@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     [RequireComponent(typeof(CircleCollider2D))]
     public class GravityWell : MonoBehaviour

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class MovementController : MonoBehaviour
     {
@@ -13,8 +13,8 @@ namespace SpaceShooter
             Mobile
         }
         private PhotonView _myView;
-        [SerializeField] private SpaceShip m_TargetShip;
-        public void SetTargetShip(SpaceShip ship) => m_TargetShip = ship;
+        [SerializeField] private Piglet m_TargetShip;
+        public void SetTargetShip(Piglet ship) => m_TargetShip = ship;
 
         [SerializeField] private VirtualJoystick m_MobileJoystick;
 

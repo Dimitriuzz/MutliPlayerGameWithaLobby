@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class Asteroid : Destructable
     {

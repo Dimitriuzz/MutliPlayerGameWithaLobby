@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class EntitySpawnerDerbis : MonoBehaviour
     {

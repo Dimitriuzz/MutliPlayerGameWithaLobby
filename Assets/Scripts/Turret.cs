@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class Turret : MonoBehaviour
     {
@@ -13,11 +13,11 @@ namespace SpaceShooter
         [SerializeField] private TurretProperties m_TurretProperties;
         private float m_RefireTimer;
         public bool CanFire => m_RefireTimer <= 0;
-        private SpaceShip m_Ship;
+        private Piglet m_Ship;
 
         private void Start()
         {
-            m_Ship = transform.root.GetComponent<SpaceShip>();
+            m_Ship = transform.root.GetComponent<Piglet>();
 
         }
 

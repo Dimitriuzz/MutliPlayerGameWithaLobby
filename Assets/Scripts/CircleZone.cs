@@ -4,7 +4,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class CircleZone : MonoBehaviour
     {

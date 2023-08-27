@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace SpaceShooter
+namespace RocketPiglet
 {
     public class GamePlayer : MonoBehaviourPunCallbacks
     {
         [SerializeField] private int m_NumLives;
-        [SerializeField] private SpaceShip m_Ship;
+        [SerializeField] private Piglet m_Ship;
         [SerializeField] private GameObject m_PlayerShipPrefab;
-        public SpaceShip ActiveShip => m_Ship;
+        public Piglet ActiveShip => m_Ship;
         private PhotonView photonView;
 
         public int NumLives => m_NumLives;
@@ -67,8 +67,9 @@ namespace SpaceShooter
                     }
                 }
 
-                var newPlayerShip = PhotonNetwork.Instantiate("Ship1", spawnpos, Quaternion.identity);
-                m_Ship = newPlayerShip.GetComponent<SpaceShip>();
+                var newPlayerShip = PhotonNetwork.Instantiate("Piglet", spawnpos, Quaternion.identity);
+                Debug.Log("pig spawned");
+                m_Ship = newPlayerShip.GetComponent<Piglet>();
 
 
                 /*m_CameraController.SetTarget(m_Ship.transform);
